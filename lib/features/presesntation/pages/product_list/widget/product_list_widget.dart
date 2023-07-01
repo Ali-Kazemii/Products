@@ -27,8 +27,8 @@ AppBar buildAppBar(BuildContext context) {
                   .pushNamed(AppRoutes.SETTINGS_PAGE);
             },
             child: Container(
-              width: 40.w,
-              height: 40.h,
+              width: 30.w,
+              height: 30.h,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/icons/settings.png")),

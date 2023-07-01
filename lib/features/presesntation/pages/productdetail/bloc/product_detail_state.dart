@@ -5,16 +5,15 @@ abstract class ProductDetailState extends Equatable{}
 class ProductDetailStateInitial extends ProductDetailState {
   final int? id;
 
-  ProductDetailStateInitial({this.id});
+  ProductDetailStateInitial({required this.id});
 
   @override
   List<Object?> get props => [id];
+}
 
-  ProductDetailStateInitial copyWith({int? id}){
-    return ProductDetailStateInitial(
-      id: id ?? this.id
-    );
-  }
+class GetProductDetailState extends ProductDetailState {
+  @override
+  List<Object> get props => [];
 }
 
 class ProductDetailStateLoading extends ProductDetailState{

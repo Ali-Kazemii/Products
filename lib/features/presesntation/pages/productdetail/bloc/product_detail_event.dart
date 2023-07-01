@@ -10,3 +10,8 @@ class ProductDetailEventInitial extends ProductDetailEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class GetProductDetailEvent extends ProductDetailEvent {
+  @override
+  List<Object> get props => [];
+}

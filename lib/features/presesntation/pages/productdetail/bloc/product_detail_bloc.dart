@@ -16,11 +16,29 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
   final GetProductDetailUseCase getProductDetailUseCase;
 
   ProductDetailBloc({required this.getProductDetailUseCase})
-      : super(ProductDetailStateInitial()) {
+      : super(ProductDetailStateInitial(id:Global.storageService.getProductId())) {
     on<ProductDetailEventInitial>(_init);
+    on<GetProductDetailEvent>(_getProductDetail);
   }
 
   void _init(ProductDetailEventInitial event, emit) async {
+    try {
+      emit(ProductDetailStateLoading());
+      final response = await getProductDetailUseCase
+          .call(ProductDetailRequestEntity(id: Global.storageService.getProductId()));
+      response.fold((failure) {
+        debugger();
+        emit(ProductDetailStateError(failure: failure));
+      }, (response) {
+        emit(ProductDetailStateLoaded(response: response));
+      });
+    } catch (e) {
+      print(e);
+      toastInfo(msg: e.toString());
+    }
+  }
+
+  void _getProductDetail(GetProductDetailEvent event, emit) async {
     try {
       emit(ProductDetailStateLoading());
       final response = await getProductDetailUseCase

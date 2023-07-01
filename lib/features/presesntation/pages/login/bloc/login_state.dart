@@ -8,14 +8,15 @@ class LoginState extends Equatable {
 
   LoginState copyWith({String? username, String? password}) {
     return LoginState(
-        username: username ?? this.username, password: password ?? this.password);
+        username: username ?? this.username,
+        password: password ?? this.password);
   }
 
   @override
-  List<Object?> get props =>[username, password];
+  List<Object?> get props => [username, password];
 }
 
-class LoginStateInitial extends LoginState{
+class LoginStateInitial extends LoginState {
   @override
-  List<Object> get props =>[];
+  List<Object> get props => [];
 }

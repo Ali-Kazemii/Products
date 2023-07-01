@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_list/features/presesntation/pages/productdetail/bloc/product_detail_bloc.dart';
 import 'package:product_list/features/presesntation/pages/productdetail/widget/product_detail_widget.dart';
 
-import '../../../../core/routes/names.dart';
 import '../../widgets/flutter_toast.dart';
 import '../../widgets/loading_widget.dart';
 
@@ -17,12 +14,24 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+
+  @override
+  void initState() {
+    BlocProvider.of<ProductDetailBloc>(context).add(GetProductDetailEvent());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    BlocProvider.of<ProductDetailBloc>(context).close();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: () async {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(AppRoutes.PRODUCT_LIST_PAGE, (route) => false);
+       Navigator.of(context).pop();
         return false;
       },
       child: Scaffold(

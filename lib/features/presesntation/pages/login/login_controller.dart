@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_list/features/domain/usecases/login_usecase.dart';
+import 'package:product_list/features/presesntation/pages/login/widget/login_widget.dart';
 import 'package:product_list/features/presesntation/widgets/flutter_toast.dart';
 
 import '../../../../core/routes/names.dart';
@@ -26,9 +27,11 @@ class LoginController {
       if (username.length >= 3 &&
           username.length < 20 &&
           password.length >= 8) {
+        showLoading(context);
         final result = await loginUseCase
             .call(LoginRequestEntity(username: username, password: password));
         result.fold((failure) {
+          hideLoading(context);
           debugger();
           print("failure:$failure");
           toastInfo(msg: failure.getMessage().toString());
@@ -52,6 +55,7 @@ class LoginController {
                 "Invalid password.. password should be grater than 8 character");
       }
     } catch (e) {
+      hideLoading(context);
       print(e);
       toastInfo(msg: e.toString());
     }
