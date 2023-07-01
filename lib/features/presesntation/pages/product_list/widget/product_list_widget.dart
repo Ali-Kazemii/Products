@@ -8,15 +8,38 @@ import '../../../../../core/routes/names.dart';
 import '../../../../../core/utils/colors.dart';
 import '../../../widgets/base_text_widget.dart';
 
-AppBar buildAppBar() {
+AppBar buildAppBar(BuildContext context) {
   return AppBar(
-    title: Center(
-      child: reusableText("Product List"),
-    ),
     backgroundColor: AppColors.appbar,
+    title: Container(
+      margin: EdgeInsets.symmetric(horizontal: 7.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 20,),
+          Center(
+            child: reusableText("Product List"),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context)
+                  .pushNamed(AppRoutes.SETTINGS_PAGE);
+            },
+            child: Container(
+              width: 40.w,
+              height: 40.h,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/icons/settings.png")),
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
   );
 }
-
 //reusable big text widget
 Widget homePageText(String text,
     {Color color = AppColors.primaryText, int top = 20}) {

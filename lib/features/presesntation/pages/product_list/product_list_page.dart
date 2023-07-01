@@ -24,7 +24,7 @@ class _ProductListPageState extends State<ProductListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: buildAppBar(),
+        appBar: buildAppBar(context),
         body: BlocBuilder<ProductListBloc, ProductListState>(builder: (context, state) {
           if (state is ProductListEventInitial) {
             return buildLoading();

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_list/features/presesntation/pages/productdetail/bloc/product_detail_bloc.dart';
 import 'package:product_list/features/presesntation/pages/productdetail/widget/product_detail_widget.dart';
 
+import '../../../../core/routes/names.dart';
 import '../../widgets/flutter_toast.dart';
 import '../../widgets/loading_widget.dart';
 
@@ -20,15 +21,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        BlocProvider.of<ProductDetailBloc>(context).close();
-        return true;
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(AppRoutes.PRODUCT_LIST_PAGE, (route) => false);
+        return false;
       },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: buildAppBar(),
         body: BlocBuilder<ProductDetailBloc, ProductDetailState>(
             builder: (context, state) {
-          debugger();
           if (state is ProductDetailStateInitial) {
             return buildLoading();
           } else if (state is ProductDetailStateLoading) {
